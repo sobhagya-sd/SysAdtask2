@@ -1,0 +1,25 @@
+<VirtualHost *:80>
+        
+        ServerAdmin admin@localhost
+        ServerName soldier.io
+        ServerAlias www.soldier.io
+        DocumentRoot /var/www/soldier.io
+
+
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        CustomLog ${APACHE_LOG_DIR}/accAllow from all
+        
+        ProxyPreserveHost On
+
+                <Proxy *>
+                        Order allow,deny
+                        Allow from all
+                </Proxy>
+
+               ProxyPass / http://localhost:3333/comp.php
+               ProxyPassReverse / http://localhost:3333/comp.php
+
+</VirtualHost>
+
+        
+                        
