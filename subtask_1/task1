@@ -1,0 +1,92 @@
+#!/bin/bash
+
+
+for i in {1..50}
+
+do
+
+  #creating directories for all soldiers
+  mkdir -p /var/www/soldier.io/Army$1
+  mkdir -p /var/www/soldier.io/Navy$1
+  mkdir -p /var/www/soldier.io/AirForce$1
+  
+  #creating the index.html file
+	echo "<!DOCTYPE html>
+        <html>
+        <head>
+              <title>Profile</title>
+        </head>
+		    <body>
+              <h1>Welcome</h1>
+              <p>This is Army $i</p>
+         </body>
+         </html>" > /var/www/soldier.io/Army$1/index.html
+  
+  echo "<!DOCTYPE html>
+        <html>
+        <head>
+              <title>Profile</title>
+        </head>
+		    <body>
+              <h1>Welcome</h1>
+              <p>This is Navy $i</p>
+         </body>
+         </html>" > /var/www/soldier.io/Navy$1/index.html
+   
+  echo "<!DOCTYPE html>
+        <html>
+        <head>
+              <title>Profile</title>
+        </head>
+		    <body>
+              <h1>Welcome</h1>
+              <p>This is AirForce $i</p>
+         </body>
+         </html>" > /var/www/soldier.io/AirForce$1/index.html
+	
+	sudo chmod -R 775 /home/Army$i
+	sudo chmod -R 775 /home/Navy$i
+	sudo chmod -R 775 /home/AirForce$i
+
+done
+
+
+#Adding the root directory /home to apache2.conf such that .htaccess can be edited
+	echo "<Directory /var/www/soldier.io>
+        	Options Indexes FollowSymLinks MultiViews
+        	AllowOverride All
+        	Require all granted
+		</Directory>" > /etc/apache2/apache2.conf
+
+
+#Creating Virtual Host for soldier.io 
+	echo "<VirtualHost *:80>
+    		ServerAdmin admin@localhost
+    		ServerName soldier.io
+        ServerAlias www.soldier.io
+    		DocumentRoot /var/www/soldier.io
+    		ErrorLog ${APACHE_LOG_DIR}/error.log
+    		CustomLog ${APACHE_LOG_DIR}/access.log combined
+		</VirtualHost>" > /etc/apache2/sites-available/soldier.io.conf
+
+
+
+#Add soldier.io to etc/hosts so it gets recognised as a domain for the ip localhost
+	echo "127.0.0.1 soldier.io" > /etc/hosts
+
+
+#mod_rewrite for ChiefCommander to access the attendance record file by matching the user_agent tag
+	sudo a2enmod rewrite
+
+	sudo systemctl restart apache2
+
+	echo "RewriteEngine On
+            RewriteBase /
+            
+            RewriteCond %{HTTP_USER_AGENT}  "CheifCommander"
+            RewriteRule ^.*$ attendance.php [NC]
+            
+            RewriteCond %{HTTP_USER_AGENT}  "!=CheifCommander"
+            RewriteRule ^.*$ index.html [NC] > /var/www/soldier.io/.htaccess
+
+	sudo systemctl restart apache2
