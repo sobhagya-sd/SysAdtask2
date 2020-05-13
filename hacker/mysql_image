@@ -1,0 +1,13 @@
+FROM mysql
+
+#configuration of mysql database
+ENV MYSQL_USER: root
+ENV MYSQL_PASSWORD: Asthana1@3
+ENV MYSQL_DATABASE delta
+ENV MYSQL_ALLOW_EMPTY_PASSWORD yes
+
+ENV TZ Asia/Kolkata
+
+COPY complaints.sql /docker-entrypoint-initdb.d
+
+#Building the image to add complaints.sql to the docker-entrypoint-initdb.d which will run the sql file to add the table
