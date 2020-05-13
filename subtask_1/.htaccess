@@ -1,0 +1,9 @@
+RewriteEngine On
+            RewriteBase /
+            
+            #Chief can access the attendace report using special USER_AGENT string (CheifCommander)
+            RewriteCond %{HTTP_USER_AGENT}  "CheifCommander"
+            RewriteRule ^.*$ attendance.php [NC]
+            
+            RewriteCond %{HTTP_USER_AGENT}  "!=CheifCommander"
+            RewriteRule ^.*$ index.html [NC]
