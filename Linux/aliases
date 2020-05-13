@@ -1,0 +1,13 @@
+#!/bin/bash
+
+echo alias userGenerate='/root/createuser' >> ~/.bashrc
+echo alias permit='/root/permission' >> ~/.bashrc
+echo alias autoSchedule='/root/sch' >> ~/.bashrc
+echo alias attendance='/root/attd' >> ~/.bashrc
+echo alias record='/root/rcd' >> ~/.bashrc
+echo alias finalattendance='/root/fattd' >> ~/.bashrc
+echo alias nearest='/root/near' >> ~/.bashrc
+
+source ~/.bashrc
+
+echo Aliases created

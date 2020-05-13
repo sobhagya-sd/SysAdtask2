@@ -1,0 +1,13 @@
+#!/bin/bash
+
+#sudo touch /home/CheifCommander/attendance_report
+
+for fleet in Army Navy AirForce
+do
+	echo " " >> /home/ChiefCommander/attendance_report
+	echo $fleet >> /home/ChiefCommander/attendance_report
+	echo " " >> /home/ChiefCommander/attendance_report
+	cat /root/attendance | grep $fleet >> /home/ChiefCommander/attendance_report 
+done
+echo Done
+

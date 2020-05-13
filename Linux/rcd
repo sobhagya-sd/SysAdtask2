@@ -1,0 +1,19 @@
+#!/bin/bash
+
+read -p "Enter your fleet: " f
+read -p "Enter: " m  n
+if [ $n -ge 1 ] && [ $n -le 7 ]
+then
+	let "d = 14 - $n"
+	#echo $d
+	match=$(date --date="$d days ago" "+%Y-%m-%d")
+	echo "Attendace record for $f on  $match"
+	echo "===================================="
+
+	d=$(cat /root/attendance | grep "^+$match" | grep "$f"| cut -d " " -f 2,3)
+	echo -e "$d\n"
+else
+	echo Invalid input
+fi
+
+

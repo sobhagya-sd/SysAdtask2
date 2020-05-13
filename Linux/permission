@@ -1,0 +1,20 @@
+#!/bin/bash
+
+#permission for army general, navy marhsal and airforce chief
+#    The chief commander can access and modify any directory.
+#    The troop chiefs can access and modify any directory of their own troops and their own directory as well.
+#    Troop chiefs should not be able to access or modify any other troop chief's, any other troop soldier’s, or the chief commanders directory.
+
+
+usermod -aG ArmyGeneral ChiefCommander
+usermod -aG NavyMarshal ChiefCommander
+usermod -aG AirForceChief ChiefCommander
+
+
+
+for (( i = 1; i < 51; i++ ))
+do
+  usermod -aG Army"$i" ArmyGeneral
+  usermod -aG AirForce"$i" AirForceChief
+  usermod -aG Navy"$i" NavyMarshal
+done
