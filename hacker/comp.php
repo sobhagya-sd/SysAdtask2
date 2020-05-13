@@ -42,3 +42,31 @@
 
             $sql = "INSERT INTO `complaints` (`username`, `complaint`, `time`) VALUES ('$name', '$desc', current_timestamp());
             $result = mysqli_query($conn, $sql);
+            
+            
+            //checking insertion
+            if ($result) {
+                echo '<strong>Success!</strong> Your complaint has been registered! ';
+            } else {
+                echo "Error inserting " . mysqli_error($conn);
+            }
+        }
+    }
+
+        mysqli_close($con);
+    ?>
+
+   <h2> COMPLAINT PAGE </h2>
+  <form action = "<?php $_PHP_SELF ?>" method = "POST">
+    Username: <input type="text" id="name" name="name"><br><br>
+    Decribe your complaint: <br>
+    <textarea name="complaint" maxlength="1000" rows="30" cols="40"></textarea><br><br>
+    <div style="padding-left : 120px"> <input type="submit" value="Submit"> </div>
+  </form>
+
+
+</body>
+
+</html>
+
+
