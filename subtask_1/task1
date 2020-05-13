@@ -6,9 +6,9 @@ for i in {1..50}
 do
 
   #creating directories for all soldiers
-  mkdir -p /var/www/soldier.io/Army$1
-  mkdir -p /var/www/soldier.io/Navy$1
-  mkdir -p /var/www/soldier.io/AirForce$1
+  mkdir -p /var/www/soldier.io/Army$i
+  mkdir -p /var/www/soldier.io/Navy$i
+  mkdir -p /var/www/soldier.io/AirForce$i
   
   #creating the index.html file
 	echo "<!DOCTYPE html>
@@ -20,7 +20,7 @@ do
               <h1>Welcome</h1>
               <p>This is Army $i</p>
          </body>
-         </html>" > /var/www/soldier.io/Army$1/index.html
+         </html>" > /var/www/soldier.io/Army$i/index.html
   
   echo "<!DOCTYPE html>
         <html>
@@ -31,7 +31,7 @@ do
               <h1>Welcome</h1>
               <p>This is Navy $i</p>
          </body>
-         </html>" > /var/www/soldier.io/Navy$1/index.html
+         </html>" > /var/www/soldier.io/Navy$i/index.html
    
   echo "<!DOCTYPE html>
         <html>
@@ -42,7 +42,7 @@ do
               <h1>Welcome</h1>
               <p>This is AirForce $i</p>
          </body>
-         </html>" > /var/www/soldier.io/AirForce$1/index.html
+         </html>" > /var/www/soldier.io/AirForce$i/index.html
 	
 	sudo chmod -R 775 /home/Army$i
 	sudo chmod -R 775 /home/Navy$i
