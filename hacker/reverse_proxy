@@ -1,0 +1,29 @@
+#!/bin/bash
+
+echo "<VirtualHost *:80>
+
+        ServerAdmin admin@localhost
+        ServerName soldier.io
+        ServerAlias www.soldier.io
+        DocumentRoot /var/www/soldier.io
+
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+        ProxyPreserveHost On
+            <Proxy *>
+                    Order allow,deny
+                    Allow from all
+             </Proxy>
+
+             ProxyPass / http://localhost:3333/comp.php
+             ProxyPassReverse / http://localhost:3333/comp.php
+             
+      </VirtualHost>" >> etc/apache2/sites-available/soldier.io.conf
+
+sudo systemctl restart apache2
+
+#to start docker compose
+docker-compose up -d
+
+        
+
