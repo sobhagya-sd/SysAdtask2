@@ -51,7 +51,7 @@ do
 done
 
 
-#Adding the root directory /home to apache2.conf such that .htaccess can be edited
+#Adding the root directory to apache2.conf such that .htaccess can be edited
 	echo "<Directory /var/www/soldier.io>
         	Options Indexes FollowSymLinks MultiViews
         	AllowOverride All
